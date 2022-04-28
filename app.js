@@ -11,9 +11,18 @@ const STREAMS_URL = '/streams'
 // Get all streams
 app.get(STREAMS_URL, (req, res) => {
   fs.readFile( __dirname + "/" + "streams.json", 'utf8', function (err, data) {
+    var resList = [];
+    var streams = data ? JSON.parse(data) : {};
+
+    for (const [key, value] of Object.entries(streams)) {
+      value.id = key;
+
+      resList.push(value);
+    }
+    
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json')
-    res.end(data);
+    res.end(JSON.stringify(resList));
   })
 })
 
