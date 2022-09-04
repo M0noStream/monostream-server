@@ -1,11 +1,8 @@
-var spawn = require("child_process").spawn;
 
-startService = (service) => {}
+export function startService(service) {}
 
-stopService = (service) => {}
+export function stopService(service) {}
 
-createService = (service) => {}
+export function createService(service) {}
 
-deleteService = (service) => {}
-
-module.exports = { startService, stopService, createService, deleteService }
+export function deleteService(service) {}

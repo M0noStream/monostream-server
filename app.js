@@ -1,14 +1,21 @@
-import { json } from 'body-parser';
 import express from 'express';
-
 import { readFile, writeFile } from 'fs';
-import { createService, deleteService } from './cliServiceUtils';
+import { startService, stopService, createService, deleteService } from './cliServiceUtils.js';
 import cors from 'cors';
+import path from 'path';
+import {fileURLToPath} from 'url';
+import bodyParser from 'body-parser';
+
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+console.log('__dirname', __dirname);
 
 var app = express();
 app.use(cors());
+app.use(bodyParser.json());
 
-app.use(json());
+
 
 const HOST = '127.0.0.1';
 const PORT = 3100;
@@ -38,7 +45,7 @@ app.post(STREAMS_URL, (req, res) => {
     data = data ? JSON.parse( data ) : {};
     var newStreamId = createUUID();
     var newStream = req.body;
-    newStream['status'] = 'stopped'
+    newStream['status']   = 'stopped'
     data[newStreamId] = newStream;
     
     createService(newStreamId, newStream);
