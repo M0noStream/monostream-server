@@ -106,3 +106,6 @@ streams.json
 
 # Created services
 services/*
+
+# package-lock - created automatically
+package-lock.json
