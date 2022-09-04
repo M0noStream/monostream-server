@@ -102,6 +102,9 @@ dist
 
 # TernJS port file
 .tern-port
+
+
+### My additions
 streams.json
 
 # Created services
