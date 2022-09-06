@@ -1,4 +1,5 @@
 import { readFile, writeFile } from 'fs';
+import { createStream as createStreamProcess } from '../services/manage-stream-service.js';
 
 function createUUID() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -16,10 +17,10 @@ export default async (req, res) => {
         newStream['status'] = 'stopped'
         data[newStreamId] = newStream;
 
-        // createStream(newStreamId, newStream);
-
-        writeFile(streamsPath, JSON.stringify(data), () => {
-            res.end(JSON.stringify(newStream));
+        createStreamProcess(newStream).then(() => {
+            writeFile(streamsPath, JSON.stringify(data), () => {
+                res.end(JSON.stringify(newStream));
+            });
         });
     });
 }

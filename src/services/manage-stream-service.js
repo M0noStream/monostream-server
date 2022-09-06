@@ -1,8 +1,8 @@
 
-export function startStream(service) {}
+export async function startStream(streamId) {}
 
-export function stopStream(service) {}
+export async function stopStream(streamId) {}
 
-export function createStream(service) {}
+export async function createStream(stream) {}
 
-export function deleteStream(service) {}
+export async function deleteStream(streamId) {}
