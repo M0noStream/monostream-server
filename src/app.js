@@ -1,6 +1,6 @@
 import express from 'express';
 import { readFile, writeFile } from 'fs';
-import { startService, stopService, createService, deleteService } from './cliServiceUtils.js';
+import { startStream, stopStream, createStream, deleteStream } from './manageStreamService.js';
 import cors from 'cors';
 import path from 'path';
 import {fileURLToPath} from 'url';
@@ -9,7 +9,7 @@ import bodyParser from 'body-parser';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-console.log('__dirname', __dirname);
+
 
 var app = express();
 app.use(cors());
@@ -48,7 +48,7 @@ app.post(STREAMS_URL, (req, res) => {
     newStream['status']   = 'stopped'
     data[newStreamId] = newStream;
     
-    createService(newStreamId, newStream);
+    createStream(newStreamId, newStream);
     
     writeFile( __dirname + "/" + "streams.json", JSON.stringify(data), () => {
       console.log('Added new stream `%s`', newStreamId);
@@ -113,7 +113,7 @@ app.delete(`${STREAMS_URL}/:id`, (req, res) => {
     streams = data ? JSON.parse( data ) : {};
 
     if (stream = streams[idToDelete]) {
-      deleteService(idToDelete, stream);
+      deleteStream(idToDelete, stream);
       delete streams[idToDelete];
 
       writeFile( __dirname + "/" + "streams.json", JSON.stringify(streams), () => {res.sendStatus(200);})
