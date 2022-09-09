@@ -5,13 +5,13 @@ import loader from './loaders/index.js'
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-global.BASE_FILE_PATH = __dirname;
+process.env.BASE_FILE_PATH = __dirname;
 
 var app = express();
 
 loader(app);
 
-var server = app.listen(global.PORT, global.HOST, function () {
+var server = app.listen(process.env.PORT, process.env.HOST, function () {
   console.dir(server.address());
-  console.log(`Server is running on ${HOST}:${PORT}`)
+  console.log(`Server is running on ${process.env.HOST}:${process.env.PORT}`)
 })

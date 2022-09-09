@@ -5,7 +5,7 @@ export default async (req, res) => {
     const streamId = req.params.id;
     var stream = null;
 
-    var streamsPath = `${global.BASE_FILE_PATH}\\streams.json`;
+    var streamsPath = `${process.env.BASE_FILE_PATH}\\streams.json`;
 
     readFile(streamsPath, 'utf8', function (err, data) {
         let allStreams = data ? JSON.parse(data) : {};

@@ -9,7 +9,7 @@ function createUUID() {
   }
 
 export default async (req, res) => {
-    var streamsPath = `${ global.BASE_FILE_PATH }\\streams.json`
+    var streamsPath = `${ process.env.BASE_FILE_PATH }\\streams.json`
     readFile(streamsPath, 'utf8', function (err, data) {
         data = data ? JSON.parse(data) : {};
         var newStreamId = createUUID();

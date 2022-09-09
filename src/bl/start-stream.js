@@ -2,7 +2,7 @@ import { readFile, writeFile } from 'fs';
 import { startStream as startStreamProcess } from '../services/manage-stream-service.js';
 
 export default async (req, res) => {
-    var streamsPath = streamsPath || `${global.BASE_FILE_PATH}\\streams.json`;
+    var streamsPath = streamsPath || `${process.env.BASE_FILE_PATH}\\streams.json`;
     const streamId = req.params.id;
 
     readFile(streamsPath, 'utf8', function (err, data) {
