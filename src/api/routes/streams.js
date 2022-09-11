@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import createNewStream from '../../bl/create-new-stream.js';
-import getStreams from '../../bl/get-streams.js';
-import startStream from '../../bl/start-stream.js';
-import stopStream from '../../bl/stop-stream.js';
-import deleteStream from '../../bl/delete-stream.js';
+import createStream from '../../bl/streams/create-stream.js';
+import getStreams from '../../bl/streams/get-streams.js';
+import startStream from '../../bl/streams/start-stream.js';
+import stopStream from '../../bl/streams/stop-stream.js';
+import deleteStream from '../../bl/streams/delete-stream.js';
 
 const streamsRouter = Router();
 
@@ -11,7 +11,7 @@ const streamsRouter = Router();
 streamsRouter.get('/', getStreams);
 
 // Add new stream
-streamsRouter.post('/', createNewStream)
+streamsRouter.post('/', createStream)
 
 // Start stream
 streamsRouter.put('/start/:id', startStream)

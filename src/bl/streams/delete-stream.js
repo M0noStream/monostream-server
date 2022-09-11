@@ -1,5 +1,5 @@
 import { readFile, writeFile } from 'fs';
-import { deleteStream as deleteStreamProcess } from '../services/manage-stream-service.js';
+import { deleteStream as deleteStreamProcess } from '../../services/manage-stream-service.js';
 
 export default async (req, res) => {
     var idToDelete = req.params.id;

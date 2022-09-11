@@ -8,6 +8,9 @@ export default (app) => {
     if (configRes.error) {
         throw configRes.error;
     }
+    else {
+        console.debug('Env parsed', configRes.parsed);
+    }
 
     // Express
     expressLoader(app);

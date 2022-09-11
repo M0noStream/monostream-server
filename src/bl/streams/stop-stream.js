@@ -1,5 +1,5 @@
 import { readFile, writeFile } from 'fs';
-import { stopStream as stopStreamProcess } from '../services/manage-stream-service.js';
+import { stopStream as stopStreamProcess } from '../../services/manage-stream-service.js';
 
 export default async (req, res) => {
     const streamId = req.params.id;
@@ -23,7 +23,9 @@ export default async (req, res) => {
             }
             else {
                 try {
-                    stopStreamProcess(streamId).then(() => {
+                    stopStreamProcess(streamId).then((sshRes) => {
+                        console.debug(sshRes)
+
                         allStreams[streamId].status = 'stopped';
 
                         writeFile(streamsPath, JSON.stringify(allStreams), () => {

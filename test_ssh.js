@@ -1,10 +1,10 @@
-const {NodeSSH} = require('node-ssh')
-const ssh2 = require('ssh2')
+import {NodeSSH} from 'node-ssh'
+
+import { readFileSync } from 'fs'
 
 const ssh = new NodeSSH()
-const host = 'ec2-54-234-89-181.compute-1.amazonaws.com'
-var key = require('fs').readFileSync('./MonoKey.ppk').toString()
-console.log('Started running')
+const host = 'ec2-44-202-52-101.compute-1.amazonaws.com'
+var key = readFileSync('./MonoKey.ppk').toString()
 
 // SSH connect
 ssh.connect({
@@ -13,7 +13,7 @@ ssh.connect({
     privateKey: key,
     port: 22
 }).then((connRes) => {
-    ssh.execCommand('sudo systemctl status monostream;sudo systemctl status monostream').then((result) => {
+    ssh.execCommand('./scripts/start_stream.sh monostream').then((result) => {
         console.log('STDOUT: ' + result.stdout)
         console.log('STDERR: ' + result.stderr)
     })
