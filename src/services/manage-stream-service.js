@@ -2,7 +2,7 @@ import { NodeSSH } from 'node-ssh'
 import { readFileSync } from 'fs'
 
 const connectionConfig = {
-    host: 'ec2-3-95-137-53.compute-1.amazonaws.com',
+    host: 'ec2-3-234-3-245.compute-1.amazonaws.com',
     username: 'ubuntu',
     privateKey: readFileSync('./MonoKey.ppk').toString(),
     port: 22
