@@ -9,8 +9,8 @@ The `MonoStreamServer` is a web api server which provides the api of [`MonoStrea
 Enables to manage the streams in the system:
 - **View** your streams using `GET` */api/streams*.
 - **Create** a new stream, using `POST` */api/streams* and a stream payload.
-- **Start** a stream, using `PUT` */api/streams/:streamId*.
-- **Stop** a stream, using `PUT` */api/streams/:streamId*.
+- **Start** a stream, using `PUT` */api/streams/start/:streamId*.
+- **Stop** a stream, using `PUT` */api/streams/stop/:streamId*.
 - **Delete** a stream, using `DELETE` */api/streams/:streamId*.
 
 ## Tecgnologies Used
