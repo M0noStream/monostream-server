@@ -2,7 +2,7 @@ import { NodeSSH } from 'node-ssh'
 import { readFileSync } from 'fs'
 
 const connectionConfig = {
-    host: 'ec2-54-88-224-226.compute-1.amazonaws.com',
+    host: 'ec2-3-95-137-53.compute-1.amazonaws.com',
     username: 'ubuntu',
     privateKey: readFileSync('./MonoKey.ppk').toString(),
     port: 22
@@ -38,8 +38,31 @@ export async function createStream(stream) {
     return ssh.execCommand(`scripts/create_stream.sh ${ streamId } ${ configProps.join(' ') }`)
 }
 
-export async function deleteStream(streamId) {}
+export async function deleteStream(streamId) {
+    if (!ssh.isConnected()) {
+        await ssh.connect(connectionConfig);
+    }
+
+    return ssh.execCommand(`scripts/delete_stream.sh ${ streamId }`)
+}
 
 function getConfigProps(stream) {
-    return ['Kafka', 100, true]
+    return [stream.isTransacted || true,
+        stream.innerDepthQueue || 100,
+        stream.source.typeName,
+        stream.source.cluster,
+        stream.source.consumerGroup || '',
+        stream.source.autoCommit || true,
+        stream.source.consumeTimeoutMS || 10000,
+        stream.source.username || '',
+        stream.source.password || '',
+        stream.source.sourceName,
+        stream.destination.typeName,
+        stream.destination.cluster,
+        stream.destination.vhost || '/',
+        stream.destination.username || '',
+        stream.destination.password || '',
+        stream.destination.exchange || '',
+        stream.destination.sourceName
+    ]
 }
