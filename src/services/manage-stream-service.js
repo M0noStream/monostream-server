@@ -38,25 +38,31 @@ export async function createStream(stream) {
     return ssh.execCommand(`scripts/create_stream.sh ${ streamId } ${ configProps.join(' ') }`)
 }
 
-export async function deleteStream(streamId) {}
+export async function deleteStream(streamId) {
+    if (!ssh.isConnected()) {
+        await ssh.connect(connectionConfig);
+    }
+
+    return ssh.execCommand(`scripts/delete_stream.sh ${ streamId }`)
+}
 
 function getConfigProps(stream) {
-    return [true,
-        100,
-        'RabbitMQ',
-        '100.27.24.141:5672',
-        'None',
-        true,
-        10000,
-        'admin',
-        'admin',
-        'first.queue',
-        'Kafka',
-        '52.20.247.158:9092',
-        'None',
-        'None',
-        'None',
-        'None',
-        'my.cars'
+    return [stream.isTransacted || true,
+        stream.innerDepthQueue || 100,
+        stream.source.typeName,
+        stream.source.cluster,
+        stream.source.consumerGroup || '',
+        stream.source.autoCommit || true,
+        stream.source.consumeTimeoutMS || 10000,
+        stream.source.username || '',
+        stream.source.password || '',
+        stream.source.sourceName,
+        stream.destination.typeName,
+        stream.destination.cluster,
+        stream.destination.vhost || '/',
+        stream.destination.username || '',
+        stream.destination.password || '',
+        stream.destination.exchange || '',
+        stream.destination.sourceName
     ]
 }
