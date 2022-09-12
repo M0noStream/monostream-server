@@ -9,6 +9,7 @@ const streamsRouter = Router();
 
 // Get all streams
 streamsRouter.get('/', getStreams);
+streamsRouter.get('/:id', getStreams);
 
 // Add new stream
 streamsRouter.post('/', createStream)
