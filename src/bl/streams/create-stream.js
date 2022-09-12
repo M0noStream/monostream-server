@@ -14,7 +14,7 @@ export default async (req, res) => {
         data = data ? JSON.parse(data) : {};
         var newStreamId = createUUID();
         var newStream = req.body;
-        newStream['status'] = 'stopped';
+        newStream['status'] = 'Inactive';
         newStream.id = newStreamId;
         data[newStreamId] = newStream;
 
