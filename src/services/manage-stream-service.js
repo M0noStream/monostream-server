@@ -2,7 +2,7 @@ import { NodeSSH } from 'node-ssh'
 import { readFileSync } from 'fs'
 
 const connectionConfig = {
-    host: 'ec2-54-88-224-226.compute-1.amazonaws.com',
+    host: 'ec2-3-95-137-53.compute-1.amazonaws.com',
     username: 'ubuntu',
     privateKey: readFileSync('./MonoKey.ppk').toString(),
     port: 22
@@ -41,5 +41,22 @@ export async function createStream(stream) {
 export async function deleteStream(streamId) {}
 
 function getConfigProps(stream) {
-    return ['Kafka', 100, true]
+    return [true,
+        100,
+        'RabbitMQ',
+        '100.27.24.141:5672',
+        'None',
+        true,
+        10000,
+        'admin',
+        'admin',
+        'first.queue',
+        'Kafka',
+        '52.20.247.158:9092',
+        'None',
+        'None',
+        'None',
+        'None',
+        'my.cars'
+    ]
 }
